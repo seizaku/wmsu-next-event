@@ -3,6 +3,8 @@
     <h1 class="text-lg font-bold mb-4">Create Event</h1>
     <form action="" id="create-event-form" enctype="multipart/form-data">
 
+      <input type="hidden" name="event_id" id="event_id">
+
       <label class="form-control w-full">
         <div class="label">
           <span class="label-text">Event Name <span class="text-red-500">*</span></span>
@@ -59,7 +61,7 @@
       <form method="dialog">
         <!-- if there is a button in form, it will close the modal -->
         <button class="btn">Close</button>
-        <button id="submit-form" type="button" class="btn btn-primary">Submit</button>
+        <button id="create-form" type="button" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>

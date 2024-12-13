@@ -9,9 +9,9 @@ class Event extends Database
   }
 
   // Create a new user
-  public function create($data)
+  public function upsert($data)
   {
-    $sql = "INSERT INTO events (event_name, event_start, event_end, location, latitude, longitude, capacity, description) VALUES (:event_name, :event_start, :event_end, :location, :latitude, :longitude, :capacity, :description)";
+    $sql = "INSERT INTO events (event_id, event_name, event_start, event_end, location, latitude, longitude, capacity, description) VALUES (:event_id, :event_name, :event_start, :event_end, :location, :latitude, :longitude, :capacity, :description) ON DUPLICATE KEY UPDATE event_name = :event_name, event_start = :event_start, event_end = :event_end, location = :location, latitude = :latitude, longitude = :longitude, capacity = :capacity, description = :description";
     $query = $this->client->prepare($sql);
     $query->execute(params: $data);
 
@@ -38,14 +38,6 @@ class Event extends Database
     return $query->fetch();
   }
 
-  // Update a user's information
-  public function update($data)
-  {
-    $sql = "UPDATE events SET event_name = :event_name, event_start = :event_start, event_end = :event_end, location = :location, latitude = :latitude, longitude = :longitude, capacity = :capacity, description = :description, WHERE event_id = :event_id ";
-    $query = $this->client->prepare($sql);
-
-    return $query->rowCount(); // Return number of affected rows
-  }
 
   // Delete a user
   public function delete($id)

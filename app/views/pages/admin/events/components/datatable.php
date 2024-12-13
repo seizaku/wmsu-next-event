@@ -17,7 +17,7 @@ $events = new Event();
     </button>
 
   </div>
-  <table id="data-table" style="width: 100%;" class="table table-auto ">
+  <table id="data-table" style="width: 100%;" class="table table-fixed">
     <thead>
       <tr class="bg-base-200">
         <th class="rounded-s">Event</th>
@@ -54,7 +54,7 @@ $events = new Event();
             </span>
           </td>
           <td>
-            <?= $description ?>
+            <p class="text-wrap"><?= $description ?></p>
           </td>
           <td>
             <?= $location ?>

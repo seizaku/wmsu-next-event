@@ -58,20 +58,28 @@ $(document).ready(function () {
     render("certificates");
   });
 
+  $(document).on("click", `.rsvp`, function (e) {
+    e.preventDefault();
+
+    postData(
+      "EventAttendeeController.php",
+      {
+        event_id: $(this).attr("data-event_id"),
+      },
+      function () {
+        showToast(`Event joined`);
+        render("events");
+      }
+    );
+  });
+
   let page = window.location.href
     .replace(BASE_URL, "")
     .split("/")
-    .join(" ")
-    .trim()
-    .split(" ")[1];
+    .join("")
+    .trim();
 
-  // render(page ?? "home");
+  console.log(page);
 
-  // $(window).on("popstate", function () {
-  //   if (page != "undefined") {
-  //     render(page);
-  //   } else {
-  //     render("dashboard");
-  //   }
-  // });
+  $(`#${page}`).addClass("bg-base-300");
 });

@@ -61,7 +61,7 @@
       <form method="dialog">
         <!-- if there is a button in form, it will close the modal -->
         <button class="btn">Close</button>
-        <button id="submit-form" type="button" class="btn btn-primary">Submit</button>
+        <button id="update-form" type="button" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </div>

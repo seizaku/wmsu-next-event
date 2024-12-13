@@ -138,8 +138,9 @@ $(document).ready(function () {
           );
         });
 
-        $("#submit-form").on("click", function (e) {
+        $(document).on("click", "#create-form", function () {
           e.preventDefault();
+          console.log("Updated");
           $("#create-event-form").submit();
         });
       }
@@ -187,6 +188,8 @@ $(document).ready(function () {
 
         $(document).on("submit", "#update-event-form", function (e) {
           e.preventDefault();
+          console.log("Updated");
+
           updateData(
             "EventController.php",
             $("#update-event-form").serialize(),
@@ -198,7 +201,7 @@ $(document).ready(function () {
           );
         });
 
-        $("#submit-form").on("click", function (e) {
+        $(document).on("click", "#update-form", function (e) {
           e.preventDefault();
           $("#update-event-form").submit();
         });

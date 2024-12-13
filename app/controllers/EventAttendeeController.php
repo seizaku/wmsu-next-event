@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . "/../models/EventModel.php";
+require_once __DIR__ . "/../models/EventAttendeeModel.php";
 
 class EventController
 {
@@ -7,7 +7,7 @@ class EventController
 
   public function __construct()
   {
-    $this->eventModel = new Event();
+    $this->eventModel = new EventAttendee();
   }
 
   public static function handler()
@@ -19,21 +19,31 @@ class EventController
         $controller->selectEvent($_POST);
         break;
       case "CREATE":
-      case "UPDATE":
-        $controller->upsertEvent($_POST);
+        $controller->joinEvent($_POST);
         break;
-      case "DELETE":
+      case "UPDATE":
         $controller->deleteEvent($_POST); // Assuming you have a delete method in your EventModel
         break;
       // You can add more cases for PUT, GET, etc.
     }
   }
 
-  public function upsertEvent($data)
+  public function joinEvent($data)
   {
     $this->eventModel->sanitize($data);
 
-    if ($this->eventModel->upsert($data)) {
+    if ($this->eventModel->create($data)) {
+      echo json_encode(["status" => true]);
+    } else {
+      echo json_encode(["status" => false]);
+    }
+  }
+
+  public function attendanceEvent($data)
+  {
+    $this->eventModel->sanitize($data);
+
+    if ($this->eventModel->create($data)) {
       echo json_encode(["status" => true]);
     } else {
       echo json_encode(["status" => false]);
@@ -41,7 +51,7 @@ class EventController
   }
 
 
-  public function selectEvent($data)
+  public function selectAttendance($data)
   {
     if (isset($data["event_id"])) {
       echo json_encode($this->eventModel->findOneById($data["event_id"]));
@@ -51,16 +61,6 @@ class EventController
     echo json_encode($this->eventModel->select());
   }
 
-  public function deleteEvent($data)
-  {
-    $this->eventModel->sanitize($data);
-
-    if ($this->eventModel->delete($data["event_id"])) {
-      echo json_encode(["status" => true]);
-    } else {
-      echo json_encode(["status" => false]);
-    }
-  }
 }
 
 EventController::handler();
